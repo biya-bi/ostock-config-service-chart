@@ -1,0 +1,89 @@
+replicaCount: 1
+image:
+  repository: artifactory-jcr.infra:30000/docker-local/com.optimagrowth/config-service
+  pullPolicy: Always
+  tag: 0.0.1-SNAPSHOT
+imagePullSecrets: []
+nameOverride: ''
+fullnameOverride: ''
+serviceAccount:
+  create: false
+  automount: true
+  annotations: {}
+  name: ''
+podAnnotations: {}
+podLabels: {}
+podSecurityContext: {}
+securityContext: {}
+service:
+  type: ClusterIP
+  port: 8080
+ingress:
+  enabled: false
+  className: ''
+  annotations: {}
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+resources: {}
+livenessProbe:
+  httpGet:
+    path: /actuator/health/liveness
+    port: 8080
+  failureThreshold: 5
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  timeoutSeconds: 5
+readinessProbe:
+  httpGet:
+    path: /actuator/health/readiness
+    port: 8080
+  failureThreshold: 5
+  initialDelaySeconds: 10
+  periodSeconds: 10
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+volumes:
+  - name: ssh-rsa-credentials
+    secret:
+      secretName: ssh-rsa-credentials
+  - name: config-service
+    secret:
+      secretName: config-service
+volumeMounts:
+  - name: ssh-rsa-credentials
+    mountPath: /run/secrets/git/private-key
+    readOnly: true
+    subPath: ssh-privatekey
+  - name: config-service
+    mountPath: /run/secrets/config/encrypt.key
+    readOnly: true
+    subPath: encrypt.key
+nodeSelector: {}
+tolerations: []
+affinity: {}
+env:
+  - name: ENCRYPT_KEY_FILE
+    value: /run/secrets/config/encrypt.key
+  - name: GIT_PRIVATE_KEY_FILE
+    value: /run/secrets/git/private-key
+  - name: SPRING_CLOUD_CONFIG_SERVER_GIT_URI
+    value: git@github.com:biya-bi/ostock-configs.git
+  - name: SPRING_CLOUD_CONFIG_SERVER_GIT_SEARCHPATHS
+    value: '*'
+  - name: SPRING_CLOUD_CONFIG_SERVER_GIT_DEFAULTLABEL
+    value: develop
+  - name: SPRING_PROFILES_ACTIVE
+    value: dev
+  - name: EUREKA_CLIENT_REGION
+    value: default
+  - name: EUREKA_CLIENT_AVAILABILITYZONES_DEFAULT
+    value: default
+  - name: EUREKA_CLIENT_SERVICEURL_DEFAULT
+    value: http://eureka-service:8080/eureka
