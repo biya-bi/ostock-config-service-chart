@@ -1,6 +1,6 @@
 replicaCount: 1
 image:
-  repository: jcr.nguiland.org/docker-local/com.optimagrowth/config-service
+  repository: jcr.nguiland.org/docker-local/org.nguiland/config-service
   pullPolicy: Always
   tag: 0.0.1-SNAPSHOT
 imagePullSecrets: []
@@ -12,7 +12,7 @@ serviceAccount:
   annotations: {}
   name: ''
 podAnnotations:
-  appCommitId: 0b68efb127a271f4dc4c6e16c7cfa08c459c80c9
+  appCommitId: d8549a697fffe9eaa3f7d8ef3c4ef812ad08e17c
 podLabels: {}
 podSecurityContext: {}
 securityContext: {}
