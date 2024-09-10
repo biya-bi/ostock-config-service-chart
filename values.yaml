@@ -80,7 +80,7 @@ env:
   - name: SPRING_CLOUD_CONFIG_SERVER_GIT_DEFAULTLABEL
     value: develop
   - name: SPRING_PROFILES_ACTIVE
-    value: dev
+    value: default
   - name: EUREKA_CLIENT_REGION
     value: default
   - name: EUREKA_CLIENT_AVAILABILITYZONES_DEFAULT
