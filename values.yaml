@@ -81,9 +81,5 @@ env:
     value: develop
   - name: SPRING_PROFILES_ACTIVE
     value: default
-  - name: EUREKA_CLIENT_REGION
-    value: default
-  - name: EUREKA_CLIENT_AVAILABILITYZONES_DEFAULT
-    value: default
-  - name: EUREKA_CLIENT_SERVICEURL_DEFAULT
+  - name: EUREKA_URI
     value: http://eureka-service:8080/eureka
