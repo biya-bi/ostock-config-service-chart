@@ -83,3 +83,5 @@ env:
     value: default
   - name: EUREKA_URI
     value: http://eureka-service:8080/eureka
+  - name: SPRING_CLOUD_CONFIG_URI
+    value: http://config-service:8080
